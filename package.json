@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "React CLI for generating components",
   "license": "MIT",
-  "author": "michalak111@gmail.com",
+  "author": {
+    "name": "Jan Michalak",
+    "email": "michalak111@gmail.com"
+  },
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
