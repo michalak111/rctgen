@@ -1,10 +1,13 @@
 {
   "name": "rctgen",
   "version": "0.0.1",
-  "description": "React CLI for generating pages, components and containers from templates",
+  "description": "React CLI for generating components",
+  "license": "MIT",
+  "author": "michalak111@gmail.com",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "preferGlobal": true,
+  "bin": {
+    "rcgen": "./index.js"
   },
   "keywords": [
     "react",
@@ -12,6 +15,8 @@
     "generator",
     "components"
   ],
-  "author": "Jan Michalak",
-  "license": "ISC"
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "minimist": "^1.2.0"
+  }
 }
