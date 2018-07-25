@@ -2,7 +2,7 @@
 
 This cli allows you to generate react components from templates within one command.
 
-###Instalation
+## Instalation
 
 ****Instal it globally****
 ```
@@ -29,7 +29,7 @@ and use it
 yarn rctgen --param value
 ```
 
-###CLI params
+## CLI params
 
 | Option        | Value          | Description                             |
 | ------------- |--------------- | ----------------------------------------|
