@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
-const pjson = require('./package.json')
+const pjson = require('../../package.json');
 
 const config = {
   filesSourceDir: pjson.rctgen ? pjson.rctgen.sourceDir :'./src'
