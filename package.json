@@ -10,7 +10,7 @@
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
-    "rcgen": "./index.js"
+    "rctgen": "./index.js"
   },
   "keywords": [
     "react",
