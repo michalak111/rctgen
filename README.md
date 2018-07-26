@@ -29,17 +29,17 @@ and use it
 yarn rctgen --param value
 ```
 
-## CLI params
+## CLI options
 
-| Option        | Param          | Description                                                  |
+| Option        | Value          | Description                                                  |
 | ------------- |--------------- | -------------------------------------------------------------|
 | --c           | Component name | Component name only CamelCase supported                      |
-| --noCss       | true/false     | Default (true) - if true generates componenet without styles |
-| --fn          | true/false     | Default (true) - if true generates function component instead of class Component                      |
+| --noCss       |                | Generates Component without styles                          |
+| --fn          |                | Generates function component instead of class Component      |
 
-### Config params
+### Config options
 
-Add to your `package.json` file
+You can add to your `package.json` file
 
 ```
 "rctgen": {
