@@ -43,7 +43,7 @@ You can add to your `package.json` file
 
 ```
 "rctgen": {
-    "sourceDir": "./src",     // source directory of your components, default is,
+    "sourceDir": "./src",     // source directory of your components
     "jsExtension: "js",       // javascript file extension (js, jsx, tsx)
     "stylesExtension: 'scss'  // styles file extension (css, sass, scss etc.)
   }
