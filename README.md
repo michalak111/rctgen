@@ -31,17 +31,20 @@ yarn rctgen --param value
 
 ## CLI params
 
-| Option        | Value          | Description                             |
-| ------------- |--------------- | ----------------------------------------|
-| --c           | Component name | Component name only CamelCase supported |
-
+| Option        | Param          | Description                                                  |
+| ------------- |--------------- | -------------------------------------------------------------|
+| --c           | Component name | Component name only CamelCase supported                      |
+| --noCss       | true/false     | Default (true) - if true generates componenet without styles |
+| --fn          | true/false     | Default (true) - if true generates function component instead of class Component                      |
 
 ### Config params
 
 Add to your `package.json` file
 
-```json
+```
 "rctgen": {
-    "sourceDir": "source directory of your components, default is ./src"
+    "sourceDir": "./src",     // source directory of your components, default is,
+    "jsExtension: "js",       // javascript file extension (js, jsx, tsx)
+    "stylesExtension: 'scss'  // styles file extension (css, sass, scss etc.)
   }
 ```
