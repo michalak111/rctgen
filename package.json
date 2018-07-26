@@ -3,6 +3,7 @@
   "version": "0.0.13",
   "description": "React CLI for generating components",
   "license": "MIT",
+  "repository": "michalak111/rctgen",
   "author": {
     "name": "Jan Michalak",
     "email": "michalak111@gmail.com"
@@ -19,6 +20,7 @@
     "components"
   ],
   "dependencies": {
+    "findup-sync": "^2.0.0",
     "fs": "^0.0.1-security",
     "minimist": "^1.2.0"
   }
