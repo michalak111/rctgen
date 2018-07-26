@@ -1,6 +1,6 @@
 {
   "name": "rctgen",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "React CLI for generating components",
   "license": "MIT",
   "repository": "michalak111/rctgen",
