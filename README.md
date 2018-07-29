@@ -17,7 +17,9 @@ yarn global add rctgen
 
 
 
-****You can install it locally and use it as well with yarn****
+****You can use it locally as well with yarn****
+
+install
 
 ```
 yarn add --dev rctgen
