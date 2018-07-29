@@ -8,7 +8,8 @@ const {templateJsClass, templateJSFunctional, templateStyle} = require('./templa
 let config = {
   sourceDir: './src',
   jsExtension: 'js',
-  stylesExtension: 'scss'
+  stylesExtension: 'scss',
+  suffix: 'Component'
 }
 
 if (pjson.rctgen) {
@@ -22,25 +23,27 @@ const generateComponent = (
     FUNCTIONAL = false,
     JS_EXT = 'js',
     WITH_CSS = true,
-    STYLE_EXT = 'scss'
+    STYLE_EXT = 'scss',
+    DIR = false
   }
 ) => {
   const name = `${COMPONENT_NAME}${SUFFIX ? SUFFIX : ''}`
+  const path = `${config.sourceDir}${DIR ? '/' + DIR : ''}`
 
   // generate JS
-  const generateJsClass = () => fs.writeFile(`${config.sourceDir}/${name}/${name}.${JS_EXT}`, templateJsClass({name, styleExt: STYLE_EXT, withCss: WITH_CSS}), (err) => {
+  const generateJsClass = () => fs.writeFile(`${path}/${name}/${name}.${JS_EXT}`, templateJsClass({name, styleExt: STYLE_EXT, withCss: WITH_CSS}), (err) => {
     if (err) throw err;
     console.log(`${name}.${JS_EXT} has been generated`);
   });
 
-  const generateJSFunctional = () => fs.writeFile(`${config.sourceDir}/${name}/${name}.${JS_EXT}`, templateJSFunctional({name, styleExt: STYLE_EXT, withCss: WITH_CSS}), (err) => {
+  const generateJSFunctional = () => fs.writeFile(`${path}/${name}/${name}.${JS_EXT}`, templateJSFunctional({name, styleExt: STYLE_EXT, withCss: WITH_CSS}), (err) => {
     if (err) throw err;
     console.log(`${name}.${JS_EXT} has been generated`);
   });
 
 
   //generate style
-  const generateStyle = () => fs.writeFile(`${config.sourceDir}/${name}/${name}.${STYLE_EXT}`, templateStyle(name), (err) => {
+  const generateStyle = () => fs.writeFile(`${path}/${name}/${name}.${STYLE_EXT}`, templateStyle(name), (err) => {
     if (err) throw err;
     console.log(`${name}.scss has been generated`);
   });
@@ -50,7 +53,7 @@ const generateComponent = (
     return
   }
 
-  fs.mkdir(`${config.sourceDir}/${name}`, (err) => {
+  fs.mkdir(`${path}/${name}`, (err) => {
     if (err) throw err;
     console.log(`${name} directory has been generated`)
 
@@ -80,6 +83,10 @@ if (argv.hasOwnProperty('c')) {
       args.FUNCTIONAL = true
     }
 
-    generateComponent({...args, JS_EXT: config.jsExtension, STYLE_EXT: config.stylesExtension})
+    if (argv['dir']) {
+      args.DIR = argv.dir
+    }
+
+    generateComponent({...args, JS_EXT: config.jsExtension, STYLE_EXT: config.stylesExtension, SUFFIX: config.suffix})
   }
 }
