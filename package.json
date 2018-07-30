@@ -1,6 +1,6 @@
 {
   "name": "rctgen",
-  "version": "0.0.31",
+  "version": "0.0.36",
   "description": "React CLI for generating components",
   "license": "MIT",
   "repository": "michalak111/rctgen",
@@ -16,6 +16,7 @@
   "scripts": {
     "prepublish": "babel src --out-dir ./dist"
   },
+  "files": ["dist"],
   "keywords": [
     "react",
     "cli",
