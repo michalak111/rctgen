@@ -69,24 +69,23 @@ const generateComponent = (
   });
 }
 
-if (argv.hasOwnProperty('c')) {
-  if (typeof argv.c !== 'string') {
-    throw 'Component name is missing'
-  } else {
-    let args = { COMPONENT_NAME: argv.c }
 
-    if(argv['noCss']) {
-      args.WITH_CSS = false
-    }
+if (typeof argv['c'] !== 'string') {
+  throw 'Component name is missing'
+} else {
+  let args = { COMPONENT_NAME: argv.c }
 
-    if(argv['fn']) {
-      args.FUNCTIONAL = true
-    }
-
-    if (argv['dir']) {
-      args.DIR = argv.dir
-    }
-
-    generateComponent({...args, JS_EXT: config.jsExtension, STYLE_EXT: config.stylesExtension, SUFFIX: config.suffix})
+  if(argv['noCss']) {
+    args.WITH_CSS = false
   }
+
+  if(argv['fn']) {
+    args.FUNCTIONAL = true
+  }
+
+  if (argv['dir']) {
+    args.DIR = argv.dir
+  }
+
+  generateComponent({...args, JS_EXT: config.jsExtension, STYLE_EXT: config.stylesExtension, SUFFIX: config.suffix})
 }
