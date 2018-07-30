@@ -13,6 +13,9 @@
   "bin": {
     "rctgen": "./index.js"
   },
+  "scripts": {
+    "prepublish": "babel src --out-dir ./"
+  },
   "keywords": [
     "react",
     "cli",
@@ -23,5 +26,18 @@
     "findup-sync": "^2.0.0",
     "fs": "^0.0.1-security",
     "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
   }
 }
