@@ -2,7 +2,7 @@ const camelCaseIntoLisp = string => string.replace(/([a-z])([A-Z])/g, '$1-$2').t
 
 const templateJsClass = ({name, withCss = true, styleExt = 'scss'}) => `import * as React from 'react'
 ${withCss ? "import './"+ name + "." + styleExt + "'\n" : ''}
-export default ${name} extends React.Component {
+export default class ${name} extends React.Component {
   render () {
     return (
       <div>${name}</div>

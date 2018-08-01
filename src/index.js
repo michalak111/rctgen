@@ -2,7 +2,14 @@
 const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
 const findup = require('findup-sync')
-const pjson = require(findup('package.json', {cwd: process.cwd()}))
+let pjson = {}
+
+try {
+  pjson = require(findup('package.json', {cwd: process.cwd()}));
+} catch (err) {
+  console.log("Cannot find package.json file.\n")
+}
+
 const {templateJsClass, templateJSFunctional, templateStyle} = require('./templates')
 
 let config = {
