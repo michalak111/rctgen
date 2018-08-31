@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-const _ = require('lodash');
-
 const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
 const findup = require('findup-sync');
