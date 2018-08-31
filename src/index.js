@@ -1,49 +1,79 @@
 #!/usr/bin/env node
+const _ = require('lodash');
+
 const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
-const findup = require('findup-sync')
+const findup = require('findup-sync');
+
 let pjson = {}
 
 try {
-  pjson = require(findup('package.json', {cwd: process.cwd()}));
+  pjson = require(findup('rctgen.config.js', {cwd: process.cwd()}));
 } catch (err) {
   console.log("Cannot find package.json file.\n")
 }
 
 const {templateJsClass, templateJSFunctional, templateStyle} = require('./templates')
 
+const componentDefaults = {
+    type: 'component',
+    classTemplate: templateJsClass,
+    functionalTemplate: templateJSFunctional,
+    suffix: 'Component',
+    dir: false
+}
+
 let config = {
   sourceDir: './src',
   jsExtension: 'js',
   stylesExtension: 'scss',
-  suffix: 'Component'
+  suffix: 'Component',
+  types: [
+      {
+          ...componentDefaults
+      }
+  ]
 }
 
-if (pjson.rctgen) {
-  config = {...pjson.rctgen}
+if (pjson) {
+  // todo merge types arrays
+  config = {...config, ...pjson}
 }
+
+console.log("config", JSON.stringify(config) +'\n\n')
 
 const generateComponent = (
   {
     COMPONENT_NAME,
-    SUFFIX = 'Component',
     FUNCTIONAL = false,
     JS_EXT = 'js',
     WITH_CSS = true,
     STYLE_EXT = 'scss',
-    DIR = false
+    DIR = false,
+    TYPE = 'component'
   }
 ) => {
-  const name = `${COMPONENT_NAME}${SUFFIX ? SUFFIX : ''}`
+  let component = config.types.find(el => el.type === TYPE)
+
+  if (component === undefined) {
+    console.log(`${TYPE} is undefined.`)
+    return;
+  } else {
+    component = {...componentDefaults, ...component}
+  }
+
+  DIR = component.dir || DIR;
+
+  const name = `${COMPONENT_NAME}${component.suffix ? component.suffix : ''}`
   const path = `${config.sourceDir}${DIR ? '/' + DIR : ''}`
 
   // generate JS
-  const generateJsClass = () => fs.writeFile(`${path}/${name}/${name}.${JS_EXT}`, templateJsClass({name, styleExt: STYLE_EXT, withCss: WITH_CSS}), (err) => {
+  const generateJsClass = () => fs.writeFile(`${path}/${name}/${name}.${JS_EXT}`, component.classTemplate({name, styleExt: STYLE_EXT, withCss: WITH_CSS}), (err) => {
     if (err) throw err;
     console.log(`${name}.${JS_EXT} has been generated`);
   });
 
-  const generateJSFunctional = () => fs.writeFile(`${path}/${name}/${name}.${JS_EXT}`, templateJSFunctional({name, styleExt: STYLE_EXT, withCss: WITH_CSS}), (err) => {
+  const generateJSFunctional = () => fs.writeFile(`${path}/${name}/${name}.${JS_EXT}`, component.functionalTemplate({name, styleExt: STYLE_EXT, withCss: WITH_CSS}), (err) => {
     if (err) throw err;
     console.log(`${name}.${JS_EXT} has been generated`);
   });
@@ -77,10 +107,14 @@ const generateComponent = (
 }
 
 
-if (typeof argv['c'] !== 'string') {
+if (typeof argv['n'] !== 'string') {
   throw 'Component name is missing'
 } else {
-  let args = { COMPONENT_NAME: argv.c }
+  let args = { COMPONENT_NAME: argv['n'] }
+
+  if(argv['t']) {
+      args.TYPE = argv['t']
+  }
 
   if(argv['noCss']) {
     args.WITH_CSS = false
