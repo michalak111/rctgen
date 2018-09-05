@@ -29,7 +29,14 @@ module.exports =  {
             type: "component",
             suffix: "Component",
             dir: "components",
-            classTemplate: customClass
+            jsExt: 'tsx',
+            classTemplate: customClass,
+            additionalFiles: [
+                {
+                    file: 'types.ts',
+                    template: `export interface IProps {}\nexport interface IState {}`
+                }
+            ]
         },
         {
             type: "container",

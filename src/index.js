@@ -3,10 +3,10 @@ const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
 const findup = require('findup-sync');
 
-let pjson = {}
+let customConfig = {}
 
 try {
-  pjson = require(findup('rctgen.config.js', {cwd: process.cwd()}));
+  customConfig = require(findup('rctgen.config.js', {cwd: process.cwd()}));
 } catch (err) {
   console.log("Cannot find package.json file.\n")
 }
@@ -33,12 +33,10 @@ let config = {
   ]
 }
 
-if (pjson) {
+if (customConfig) {
   // todo merge types arrays
-  config = {...config, ...pjson}
+  config = {...config, ...customConfig}
 }
-
-console.log("config", JSON.stringify(config) +'\n\n')
 
 const generateComponent = (
   {
@@ -61,9 +59,17 @@ const generateComponent = (
   }
 
   DIR = component.dir || DIR;
+  JS_EXT = component.jsExt || JS_EXT;
 
   const name = `${COMPONENT_NAME}${component.suffix ? component.suffix : ''}`
   const path = `${config.sourceDir}${DIR ? '/' + DIR : ''}`
+  const additionalFiles = component.additionalFiles || [];
+
+  // generate custom file
+  const generateFile = (file, template) => fs.writeFile(`${path}/${name}/${file}`, template, (err) => {
+    if (err) throw err;
+    console.log(`${file} has been generated`);
+  });
 
   // generate JS
   const generateJsClass = () => fs.writeFile(`${path}/${name}/${name}.${JS_EXT}`, component.classTemplate({name, styleExt: STYLE_EXT, withCss: WITH_CSS}), (err) => {
@@ -85,11 +91,11 @@ const generateComponent = (
 
   if (!fs.existsSync(config.sourceDir)){
     console.error('Source folder does not exist!')
-    return
+    return;
   }
 
   fs.mkdir(`${path}/${name}`, (err) => {
-    if (err) throw err;
+    if (err) throw err.message;
     console.log(`${name} directory has been generated`)
 
     if (!FUNCTIONAL) {
@@ -100,6 +106,12 @@ const generateComponent = (
 
     if (WITH_CSS) {
       generateStyle();
+    }
+
+    if (additionalFiles.length > 0) {
+      additionalFiles.forEach(el => {
+        generateFile(el.file, el.template)
+      })
     }
   });
 }
