@@ -35,7 +35,7 @@ yarn rctgen --param value
 
 | Option        | Value          | Description                                                                          |
 | ------------- |--------------- | -------------------------------------------------------------------------------------|
-| --c           | Component name | Component name only CamelCase supported                                              |
+| --n           | Component name | Component name only CamelCase supported                                              |
 | --noCss       |                | Generates Component without styles                                                   |
 | --fn          |                | Generates function component instead of class Component                              |
 | --dir         | directory path | Generates component inside directory path which is relative to source directory      |
@@ -55,7 +55,7 @@ You can add to your `package.json` file
 
 ### Example
 
-running `rctgen --c Button` generates:
+running `rctgen --n Button` generates:
 
 ##### Files structure:
 

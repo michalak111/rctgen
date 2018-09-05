@@ -16,7 +16,9 @@
   "scripts": {
     "prepublish": "babel src --out-dir ./dist"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "react",
     "cli",
